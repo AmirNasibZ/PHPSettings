@@ -1,0 +1,206 @@
+#!/usr/bin/env bash
+
+read -p "Enter a Server Type (Linux, WordPress, Woocommerce, Customer, Other): " SERVER_TYPE
+
+chattr -i $php $phpalt
+
+case "$SERVER_TYPE" in
+    Linux)
+        # max_input_vars check
+
+        sed -i '/max_input_vars = /c\max_input_vars = 3000' $php
+
+        for file in $phpalt; do
+            if ! grep -qxF "max_input_vars = " "$file"; then
+                echo "max_input_vars = 3000" >> "$file"
+            fi
+        done
+
+        if ( grep -q 'max_input_vars = 3000' $php $phpalt) ;then
+                echo "max_input_vars = 3000 ==> true"
+        else
+                echo "max_input_vars = 3000 ==> False $php $phpalt"
+        fi
+
+        # memory_limit check
+        sed -i '/memory_limit/c\memory_limit = 512M' $php
+        echo "memory_limit = 512M ==> true"
+
+        # max_file_uploads check
+        sed -i '/max_file_uploads/c\max_file_uploads = 20' $php
+        echo "max_file_uploads = 20 ==> true"
+
+        # max_input_time check
+        sed -i '/max_input_time = /c\max_input_time = 300' $php
+        echo "max_input_time = 300 ==> true"
+
+        # max_execution_time check
+        sed -i '/max_execution_time/c\max_execution_time = 100' $php
+        echo "max_execution_time = 100 ==> true"
+
+        # upload_max_filesize check
+        sed -i '/upload_max_filesize/c\upload_max_filesize = 128M' $php
+        echo "upload_max_filesize = 128M ==> true"
+
+        # post_max_size check
+        sed -i '/post_max_size/c\post_max_size = 128M' $php
+        echo "post_max_size = 128M ==> true"
+
+        # zlib.output_compression check
+        sed -i '/zlib.output_compression =/c\zlib.output_compression = On' $php
+        echo "zlib.output_compression = On ==> true"
+
+        # allow_url_fopen check
+        sed -i '/allow_url_fopen =/c\allow_url_fopen = On' $php
+        echo "allow_url_fopen = On ==> true"
+        ;;
+    WordPress)
+        # max_input_vars check
+
+        sed -i '/max_input_vars = /c\max_input_vars = 10000' $php
+
+        for file in $phpalt; do
+            if ! grep -qxF "max_input_vars = " "$file"; then
+                echo "max_input_vars = 10000" >> "$file"
+            fi
+        done
+
+        if ( grep -q 'max_input_vars = 10000' $php $phpalt) ;then
+                echo "max_input_vars = 10000 ==> true"
+        else
+                echo "max_input_vars = 10000 ==> False $php $phpalt"
+        fi
+
+        # memory_limit check
+        sed -i '/memory_limit/c\memory_limit = 2048M' $php
+        echo "memory_limit = 2048M ==> true"
+
+        # max_file_uploads check
+        sed -i '/max_file_uploads/c\max_file_uploads = 40' $php
+        echo "max_file_uploads = 40 ==> true"
+
+        # max_input_time check
+        sed -i '/max_input_time = /c\max_input_time = 600' $php
+        echo "max_input_time = 600 ==> true"
+
+        # max_execution_time check
+        sed -i '/max_execution_time/c\max_execution_time = 300' $php
+        echo "max_execution_time = 300 ==> true"
+
+        # upload_max_filesize check
+        sed -i '/upload_max_filesize/c\upload_max_filesize = 256M' $php
+        echo "upload_max_filesize = 256M ==> true"
+
+        # post_max_size check
+        sed -i '/post_max_size/c\post_max_size = 256M' $php
+        echo "post_max_size = 256M ==> true"
+
+        # zlib.output_compression check
+        sed -i '/zlib.output_compression =/c\zlib.output_compression = On' $php
+        echo "zlib.output_compression = On ==> true"
+
+        # allow_url_fopen check
+        sed -i '/allow_url_fopen =/c\allow_url_fopen = On' $php
+        echo "allow_url_fopen = On ==> true"
+        ;;
+    Woocommerce)
+        # max_input_vars check
+
+        sed -i '/max_input_vars = /c\max_input_vars = 20000' $php
+
+        for file in $phpalt; do
+            if ! grep -qxF "max_input_vars = " "$file"; then
+                echo "max_input_vars = 20000" >> "$file"
+            fi
+        done
+
+        if ( grep -q 'max_input_vars = 20000' $php $phpalt) ;then
+                echo "max_input_vars = 20000 ==> true"
+        else
+                echo "max_input_vars = 20000 ==> False $php $phpalt"
+        fi
+
+        # memory_limit check
+        sed -i '/memory_limit/c\memory_limit = 3072M' $php
+        echo "memory_limit = 3072M ==> true"
+
+        # max_file_uploads check
+        sed -i '/max_file_uploads/c\max_file_uploads = 60' $php
+        echo "max_file_uploads = 60 ==> true"
+
+        # max_input_time check
+        sed -i '/max_input_time = /c\max_input_time = 900' $php
+        echo "max_input_time = 900 ==> true"
+
+        # max_execution_time check
+        sed -i '/max_execution_time/c\max_execution_time = 300' $php
+        echo "max_execution_time = 300 ==> true"
+
+        # upload_max_filesize check
+        sed -i '/upload_max_filesize/c\upload_max_filesize = 512M' $php
+        echo "upload_max_filesize = 512M ==> true"
+
+        # post_max_size check
+        sed -i '/post_max_size/c\post_max_size = 512M' $php
+        echo "post_max_size = 512M ==> true"
+
+        # zlib.output_compression check
+        sed -i '/zlib.output_compression =/c\zlib.output_compression = On' $php
+        echo "zlib.output_compression = On ==> true"
+
+        # allow_url_fopen check
+        sed -i '/allow_url_fopen =/c\allow_url_fopen = On' $php
+        echo "allow_url_fopen = On ==> true"
+        ;;
+    Customer | Other | *)
+        # max_input_vars check
+
+        sed -i '/max_input_vars = /c\max_input_vars = 500000' $php
+
+        for file in $phpalt; do
+            if ! grep -qxF "max_input_vars = " "$file"; then
+                echo "max_input_vars = 500000" >> "$file"
+            fi
+        done
+
+        if ( grep -q 'max_input_vars = 500000' $php $phpalt) ;then
+                echo "max_input_vars = 500000 ==> true"
+        else
+                echo "max_input_vars = 500000 ==> False $php $phpalt"
+        fi
+
+        # memory_limit check
+        sed -i '/memory_limit/c\memory_limit = 8192M' $php
+        echo "memory_limit = 8192M ==> true"
+
+        # max_file_uploads check
+        sed -i '/max_file_uploads/c\max_file_uploads = 1024' $php
+        echo "max_file_uploads = 1024 ==> true"
+
+        # max_input_time check
+        sed -i '/max_input_time = /c\max_input_time = 50000' $php
+        echo "max_input_time = 50000 ==> true"
+
+        # max_execution_time check
+        sed -i '/max_execution_time/c\max_execution_time = 50000' $php
+        echo "max_execution_time = 50000 ==> true"
+
+        # upload_max_filesize check
+        sed -i '/upload_max_filesize/c\upload_max_filesize = 2048M' $php
+        echo "upload_max_filesize = 2048M ==> true"
+
+        # post_max_size check
+        sed -i '/post_max_size/c\post_max_size = 2048M' $php
+        echo "post_max_size = 2048M ==> true"
+
+        # zlib.output_compression check
+        sed -i '/zlib.output_compression =/c\zlib.output_compression = On' $php
+        echo "zlib.output_compression = On ==> true"
+
+        # allow_url_fopen check
+        sed -i '/allow_url_fopen =/c\allow_url_fopen = On' $php
+        echo "allow_url_fopen = On ==> true"
+        ;;
+esac
+
+chattr +i $php $phpalt
