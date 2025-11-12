@@ -2,6 +2,9 @@
 
 read -p "Enter a Server Type (Linux, WordPress, Woocommerce, Customer, Other): " SERVER_TYPE
 
+php=$(find /*/*/*php[7,8]* -maxdepth 3 -mindepth 2 -iname php.ini)
+phpalt=$(find /opt/alt/*php[7,8]* -maxdepth 3 -mindepth 2 -iname php.ini)
+
 chattr -i $php $phpalt
 
 case "$SERVER_TYPE" in
